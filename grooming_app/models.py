@@ -1,27 +1,27 @@
 from django.db import models
 
-Breeds = (
-    (1, "Wielorasowiec"),
-    (2, "Airedale terrier"),
-    (3, "Akita amerykańska"),
-    (4, "Alaskan malamute"),
-    (5, "York"),
-    (6, "Maltańczyk"),
-    (7, "Maltipoo"),
-    (8, "Owczarek niemiecki"),
-    (9, "West"),
-    (10, "Cawapoo"),
-    (11, "Cavalier"),
-    (12, "Cocker spaniel"),
-)
-
-Services = (
-    (1, "Kąpiele pielęgnacyjne i lecznicze"),
-    (2, "Obcinanie pazurów"),
-    (3, "Trymowanie"),
-    (4, "Rozczesywanie"),
-    (5, "Higiena uszu i zębów"),
-)
+# Breeds = (
+#     (1, "Wielorasowiec"),
+#     (2, "Airedale terrier"),
+#     (3, "Akita amerykańska"),
+#     (4, "Alaskan malamute"),
+#     (5, "York"),
+#     (6, "Maltańczyk"),
+#     (7, "Maltipoo"),
+#     (8, "Owczarek niemiecki"),
+#     (9, "West"),
+#     (10, "Cawapoo"),
+#     (11, "Cavalier"),
+#     (12, "Cocker spaniel"),
+# )
+#
+# Services = (
+#     (1, "Kąpiele pielęgnacyjne i lecznicze"),
+#     (2, "Obcinanie pazurów"),
+#     (3, "Trymowanie"),
+#     (4, "Rozczesywanie"),
+#     (5, "Higiena uszu i zębów"),
+# )
 
 
 class Clients(models.Model):
@@ -38,7 +38,6 @@ class Clients(models.Model):
 class Dogs(models.Model):
     name = models.CharField(max_length=64)
     age = models.IntegerField()
-    breeds = models.CharField(max_length=1, choices=Breeds)
     clients = models.ManyToManyField(Clients)
 
     def __str__(self):
@@ -61,5 +60,6 @@ class Reservation(models.Model):
 
 
 class Service(models.Model):
-    services = models.CharField(max_length=1, choices=Services)
+    service_name = models.CharField(max_length=64)
     dog = models.ForeignKey(Dogs, on_delete=models.CASCADE)
+    price = models.FloatField()
