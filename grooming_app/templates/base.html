@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="/add_dog">Dodaj psa</a><br>
+
+{% if user.is_anonymous %}
+    <a href="{% url 'login' %}">Log in</a>
+{% else %}
+    <a href="{% url 'logout' %}">Log out</a>
+{% endif %}
+</body>
+</html>

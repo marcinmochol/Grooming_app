@@ -15,7 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from grooming_app.views import AddDog, AddService, LoginView, LogoutView, Base, DogsListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', Base.as_view()),
+    path('add_dog/', AddDog.as_view(), name="add_dog"),
+    path('add_service/', AddService.as_view(), name="add_service"),
+    path('dog_list/', DogsListView.as_view(), name="dog_list"),
+    path('add_service/', AddService.as_view(), name="add_service"),
+    path('login/', LoginView.as_view(), name="login"),
+    path('logout/', LogoutView.as_view(), name="logout"),
 ]

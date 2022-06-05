@@ -1,34 +1,10 @@
 from django.db import models
 
-# Breeds = (
-#     (1, "Wielorasowiec"),
-#     (2, "Airedale terrier"),
-#     (3, "Akita amerykańska"),
-#     (4, "Alaskan malamute"),
-#     (5, "York"),
-#     (6, "Maltańczyk"),
-#     (7, "Maltipoo"),
-#     (8, "Owczarek niemiecki"),
-#     (9, "West"),
-#     (10, "Cawapoo"),
-#     (11, "Cavalier"),
-#     (12, "Cocker spaniel"),
-# )
-#
-# Services = (
-#     (1, "Kąpiele pielęgnacyjne i lecznicze"),
-#     (2, "Obcinanie pazurów"),
-#     (3, "Trymowanie"),
-#     (4, "Rozczesywanie"),
-#     (5, "Higiena uszu i zębów"),
-# )
-
-
 class Clients(models.Model):
     name = models.CharField(max_length=64, verbose_name='Imię')
     surname = models.CharField(max_length=64, verbose_name='Nazwisko')
-    e_mail = models.EmailField()
-    phone_number = models.IntegerField()
+    e_mail = models.EmailField(unique=True)
+    phone_number = models.CharField(max_length=9, unique=True, null=True)
 
     @property
     def full_name(self):
@@ -36,17 +12,20 @@ class Clients(models.Model):
 
 
 class Dogs(models.Model):
-    name = models.CharField(max_length=64)
-    age = models.IntegerField()
+    dog_name = models.CharField(max_length=64, verbose_name='Imię')
+    breed = models.CharField(max_length=128, null=True, verbose_name='Rasa')
+    age = models.FloatField(verbose_name='Wiek')
+    comment = models.TextField(null=True, verbose_name='Komentarz')
     clients = models.ManyToManyField(Clients)
 
     def __str__(self):
-        return self.name
+        return self.dog_name
 
 
 class Employees(models.Model):
     name = models.CharField(max_length=64, verbose_name='Imię')
     surname = models.CharField(max_length=64, verbose_name='Nazwisko')
+    e_mail = models.EmailField(null=True)
 
     def __str__(self):
         return self.name
@@ -60,6 +39,6 @@ class Reservation(models.Model):
 
 
 class Service(models.Model):
-    service_name = models.CharField(max_length=64)
+    service_name = models.CharField(max_length=64, verbose_name='Nazwa usługi')
     dog = models.ForeignKey(Dogs, on_delete=models.CASCADE)
-    price = models.FloatField()
+    price = models.FloatField(verbose_name='Cena')

@@ -1,0 +1,7 @@
+<ul>
+{% for dog in dog_list %}
+    <li>{{ dog.dog_name }}  {{ dog.breed }} {{ dog.age }} {{ dog.comment }}</li>
+{% empty %}
+    <li>No messages yet.</li>
+{% endfor %}
+</ul>
