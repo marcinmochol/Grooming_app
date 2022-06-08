@@ -15,15 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from grooming_app.views import AddDog, AddService, LoginView, LogoutView, Base, DogsListView
+from grooming_app.views import AddDog, AddService, LoginView, LogoutView, Base, DogsListView, AddClient, AddEmployee
+from grooming_app.views import DeleteDogsView, ModifyDogs
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', Base.as_view()),
     path('add_dog/', AddDog.as_view(), name="add_dog"),
+    path('dog_list/<int:dog_id>/', DeleteDogsView.as_view(), name="delete-dog"),
+    path('dog/modify/<int:dog_id>/', ModifyDogs.as_view(), name="modify-dog"),
     path('add_service/', AddService.as_view(), name="add_service"),
     path('dog_list/', DogsListView.as_view(), name="dog_list"),
-    path('add_service/', AddService.as_view(), name="add_service"),
+    path('add_client/', AddClient.as_view(), name="add_client"),
+    path('add_employee/', AddEmployee.as_view(), name="add_employee"),
     path('login/', LoginView.as_view(), name="login"),
     path('logout/', LogoutView.as_view(), name="logout"),
 ]

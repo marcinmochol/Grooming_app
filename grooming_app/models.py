@@ -25,7 +25,8 @@ class Dogs(models.Model):
 class Employees(models.Model):
     name = models.CharField(max_length=64, verbose_name='Imię')
     surname = models.CharField(max_length=64, verbose_name='Nazwisko')
-    e_mail = models.EmailField(null=True)
+    e_mail = models.EmailField(null=True, unique=True)
+    dog = models.OneToOneField(Dogs, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.name
@@ -40,5 +41,5 @@ class Reservation(models.Model):
 
 class Service(models.Model):
     service_name = models.CharField(max_length=64, verbose_name='Nazwa usługi')
-    dog = models.ForeignKey(Dogs, on_delete=models.CASCADE)
+    dog = models.ForeignKey(Dogs, on_delete=models.CASCADE, null=True)
     price = models.FloatField(verbose_name='Cena')

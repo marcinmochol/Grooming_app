@@ -1,7 +1,10 @@
-<ul>
+
 {% for dog in dog_list %}
-    <li>{{ dog.dog_name }}  {{ dog.breed }} {{ dog.age }} {{ dog.comment }}</li>
+    <ul>{{ dog.dog_name }}  {{ dog.breed }} {{ dog.age }} {{ dog.comment }}
+    <a href="/dog/modify/{{ dog.id }}">Modyfikuj</a>
+    <a href="{{ dog.id }}">Usuń</a></ul>
+
+
 {% empty %}
-    <li>No messages yet.</li>
+    <li>Brak psów</li>
 {% endfor %}
-</ul>

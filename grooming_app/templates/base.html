@@ -1,16 +1,30 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Grooming</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
-<body>
-<a href="/add_dog">Dodaj psa</a><br>
+<body class="body">
+<img class="image" src="{% static 'grooming.png' %}">
+<h1 class="header">Witamy na stronie</h1>
+<div class="links">
+    <a href="/login">Zaloguj</a><br>
+    <a href="/add_dog">Dodaj psa</a><br>
+    <a href="/add_service">Dodaj usługę</a><br>
+    <a href="/dog_list">Lista psów</a><br>
+    <a href="/add_client">Dodaj klienta</a><br>
+    <a href="/add_employee">Dodaj pracownika</a><br>
+</div>
 
-{% if user.is_anonymous %}
-    <a href="{% url 'login' %}">Log in</a>
-{% else %}
-    <a href="{% url 'logout' %}">Log out</a>
+<div class="login-view">
+    {% if user.is_anonymous %}
+        <a href="{% url 'login' %}">Log in</a>
+    {% else %}
+        <a href="{% url 'logout' %}">Log out</a>
 {% endif %}
+</div>
+
 </body>
 </html>

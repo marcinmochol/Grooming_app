@@ -1,9 +1,9 @@
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
-from .forms import DogsForm, ServiceForm, LoginForm
-from .models import Dogs, Service
+from .forms import DogsForm, ServiceForm, LoginForm, EmployeeForm, ClientForm
+from .models import Dogs, Service, Employees, Clients
 from django.views.generic import ListView
 
 class Base(View):
@@ -31,20 +31,73 @@ class DogsListView(ListView):
     template_name = 'dog_list.html'
     context_object_name = 'dog_list'
 
+class ModifyDogs(View):
+    def get(self,request, dog_id):
+        dog = Dogs.objects.filter(id=dog_id)
+        return render(request, 'Modify_dog.html', {'dog':dog})
+    def post(self, request, dog_id):
+        dog_name = request.POST.get('dog_name')
+        breed = request.POST.get('breed')
+        age = request.POST.get('age')
+        comment = request.POST.get('comment')
+        d = Dogs.objects.get(id=dog_id)
+        d.dog_name = dog_name
+        d.breed = breed
+        d.age = age
+        d.comment = comment
+        d.save()
+        return redirect("dog_list")
+
+class DeleteDogsView(View):
+    def get(self, request, dog_id):
+        dog = Dogs.objects.get(id=dog_id)
+        dog.delete()
+        return redirect("dog_list")
+
+class AddClient(View):
+    def get(self, request):
+        form = ClientForm()
+        return render(request, 'Add_client.html', {'form': form})
+
+    def post(self, request):
+        form = ClientForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            surname = form.cleaned_data['surname']
+            e_mail = form.cleaned_data['e_mail']
+            phone_number = form.cleaned_data['phone_number']
+            client = Clients.objects.create(name=name, surname=surname, e_mail=e_mail, phone_number=phone_number)
+            return HttpResponseRedirect('/')
+        return render(request, 'Add_client.html', {'form': form})
+
 class AddService(View):
     def get(self, request):
         form = ServiceForm()
         return render(request, 'Add_service.html', {'form': form})
 
-    def post(self, request, service_id):
+    def post(self, request):
         form = ServiceForm(request.POST)
-        service_id = Service.objects.get(id=service_id)
         if form.is_valid():
             service_name = form.cleaned_data['service_name']
             price = form.cleaned_data['price']
             service = Service.objects.create(service_name=service_name, price=price)
             return HttpResponseRedirect('/')
-        return render(request, 'Add_service.html', {'form': form}, {'service_id': service_id})
+        return render(request, 'Add_service.html', {'form': form})
+
+class AddEmployee(View):
+    def get(self, request):
+        form = EmployeeForm()
+        return render(request, 'Add_employee.html', {'form': form})
+
+    def post(self, request):
+        form = EmployeeForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            surname = form.cleaned_data['surname']
+            e_mail = form.cleaned_data['e_mail']
+            employee = Employees.objects.create(name=name, surname=surname, e_mail=e_mail)
+            return HttpResponseRedirect('/')
+        return render(request, 'Add_employee.html', {'form': form})
 
 class LoginView(View):
 

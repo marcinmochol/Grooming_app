@@ -22,3 +22,7 @@ class ClientForm(ModelForm):
         model = Clients
         fields = '__all__'
 
+class EmployeeForm(ModelForm):
+    class Meta:
+        model = Employees
+        exclude = ['dog']

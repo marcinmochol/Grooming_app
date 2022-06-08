@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="" method="POST">
+    {% csrf_token %}
+    <label>
+        Imię psa:
+        <input type="text" name="dog_name" value="{{ dogs.dog_name }}">
+    </label>
+    <label>
+        Rasa:
+        <input type="text" name="breed" value="{{ dogs.breed }}">
+    </label>
+    <label>
+        Wiek:
+        <input type="text" name="age" value="{{ dogs.age }}">
+    </label>
+    <label>
+        Komentarz:
+        <input type="text" name="comment" value="{{ dogs.comment }}">
+    </label>
+    <input type="submit" value="Modyfikuj">
+</form>
+<br>
+{{ message }}
+
+</body>
+</html>
