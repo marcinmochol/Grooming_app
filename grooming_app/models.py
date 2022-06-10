@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Clients(models.Model):
     name = models.CharField(max_length=64, verbose_name='Imię')
     surname = models.CharField(max_length=64, verbose_name='Nazwisko')
@@ -32,26 +33,14 @@ class Employees(models.Model):
     def __str__(self):
         return self.name
 
-Hours = (
-    (1, '8:00'),
-    (2, '9:00'),
-    (3, '10:00'),
-    (4, '11:00'),
-    (5, '12:00'),
-    (6, '13:00'),
-    (7, '14:00'),
-    (8, '15:00'),
-    (9, '16:00'),
-    (10, '17:00'),
-    (11, '18:00'),
-)
+
 
 class Reservation(models.Model):
     employee = models.ForeignKey(Employees, on_delete=models.CASCADE)
     dog = models.ForeignKey(Dogs, on_delete=models.CASCADE)
     service = models.ForeignKey('Service', on_delete=models.CASCADE, null=True)
-    start_date = models.DateField(null=True)
-    start_hour = models.TimeField(choices=Hours, null=True)
+    start_day = models.DateField(null=True)
+    start_hour = models.TimeField(null=True)
 
 
 class Service(models.Model):

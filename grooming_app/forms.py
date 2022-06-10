@@ -1,7 +1,21 @@
 from django.forms import ModelForm
 from django import forms
 from grooming_app.models import Dogs, Clients, Employees, Service, Reservation
+from django.contrib.admin.widgets import AdminDateWidget, AdminTimeWidget
 
+Hours = (
+    ('8:00', '8:00'),
+    ('9:00', '9:00'),
+    ('10:00', '10:00'),
+    ('11:00', '11:00'),
+    ('12:00', '12:00'),
+    ('13:00', '13:00'),
+    ('14:00', '14:00'),
+    ('15:00', '15:00'),
+    ('16:00', '16:00'),
+    ('17:00', '17:00'),
+    ('18:00', '18:00'),
+)
 
 class DogsForm(ModelForm):
     class Meta:
@@ -28,7 +42,10 @@ class EmployeeForm(ModelForm):
         exclude = ['dog']
 
 
-class ReservationForm(ModelForm):
-    class Meta:
-        model = Reservation
-        fields = '__all__'
+class ReservationForm(forms.Form):
+    employye = forms.ModelChoiceField(queryset=Employees.objects)
+    dog = forms.ModelChoiceField(queryset=Dogs.objects)
+    service = forms.ModelChoiceField(queryset=Service.objects)
+    start_day = forms.DateField(label="Start", widget=AdminDateWidget)
+    start_hour = forms.TimeField(label="Start", widget=AdminTimeWidget)
+

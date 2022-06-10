@@ -109,6 +109,15 @@ class Reservation(View):
         form = ReservationForm()
         return render(request, 'reservation.html', {'form': form})
 
+    def post(self, request):
+        form = ReservationForm(request.POST)
+        if form.is_valid():
+            start_day = form.cleaned_data['start_day']
+            start_hour = form.cleaned_data['start_hour']
+            reservation = Employees.objects.create(start_day=start_day, start_hour=start_hour)
+            return HttpResponseRedirect('/')
+        return render(request, 'reservation.html', {'form': form})
+
 class LoginView(View):
 
     def get(self, request):
