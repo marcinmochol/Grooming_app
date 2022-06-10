@@ -1,11 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-<form action="" method="POST">
+<br>
+<br action="" method="POST">
     {% csrf_token %}
     <label>
         Imię psa:
@@ -23,10 +26,11 @@
         Komentarz:
         <input type="text" name="comment" value="{{ dogs.comment }}">
     </label>
-    <input type="submit" value="Modyfikuj">
+    <br><input type="submit" value="Modyfikuj"></br>
 </form>
-<br>
-{{ message }}
+
+
 
 </body>
 </html>
+{% endblock %}

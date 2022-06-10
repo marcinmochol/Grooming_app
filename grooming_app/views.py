@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
-from .forms import DogsForm, ServiceForm, LoginForm, EmployeeForm, ClientForm
+from .forms import DogsForm, ServiceForm, LoginForm, EmployeeForm, ClientForm, ReservationForm
 from .models import Dogs, Service, Employees, Clients
 from django.views.generic import ListView
 
@@ -32,7 +32,7 @@ class DogsListView(ListView):
     context_object_name = 'dog_list'
 
 class ModifyDogs(View):
-    def get(self,request, dog_id):
+    def get(self, request, dog_id):
         dog = Dogs.objects.filter(id=dog_id)
         return render(request, 'Modify_dog.html', {'dog':dog})
     def post(self, request, dog_id):
@@ -98,6 +98,16 @@ class AddEmployee(View):
             employee = Employees.objects.create(name=name, surname=surname, e_mail=e_mail)
             return HttpResponseRedirect('/')
         return render(request, 'Add_employee.html', {'form': form})
+
+class EmployeesListView(ListView):
+    model = Employees
+    template_name = 'employees_list.html'
+    context_object_name = 'employees_list'
+
+class Reservation(View):
+    def get(self, request):
+        form = ReservationForm()
+        return render(request, 'reservation.html', {'form': form})
 
 class LoginView(View):
 

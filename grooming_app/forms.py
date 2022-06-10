@@ -26,3 +26,9 @@ class EmployeeForm(ModelForm):
     class Meta:
         model = Employees
         exclude = ['dog']
+
+
+class ReservationForm(ModelForm):
+    class Meta:
+        model = Reservation
+        fields = '__all__'

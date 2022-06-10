@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from grooming_app.views import AddDog, AddService, LoginView, LogoutView, Base, DogsListView, AddClient, AddEmployee
-from grooming_app.views import DeleteDogsView, ModifyDogs
+from grooming_app.views import DeleteDogsView, ModifyDogs, Reservation, EmployeesListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,6 +28,8 @@ urlpatterns = [
     path('dog_list/', DogsListView.as_view(), name="dog_list"),
     path('add_client/', AddClient.as_view(), name="add_client"),
     path('add_employee/', AddEmployee.as_view(), name="add_employee"),
+    path('employees_list/', EmployeesListView.as_view(), name="employees_list"),
+    path('reservation/', Reservation.as_view(), name="reservation"),
     path('login/', LoginView.as_view(), name="login"),
     path('logout/', LogoutView.as_view(), name="logout"),
 ]

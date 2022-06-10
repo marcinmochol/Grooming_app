@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content%}
+<style> td, th { border: 1px solid black; } </style>
+{% for em in employees_list %}
+    {% if user.is_authenticated %}
+        <h3>{{ em.name }}  {{ em.surname }}  {{ em.e_mail }}</h3>
+        <p>{{ em.description }}</p>
+    {% else %}
+        <h3>{{ em.name }}  {{ em.surname }}</h3>
+        <p>{{ em.description }}</p>
+    {% endif %}
+    {% empty %}
+        <a href="/add_employee">Dodaj pracownika</a><br>
+{% endfor %}
+
+{% endblock %}

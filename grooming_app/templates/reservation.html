@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content%}
-<h1>Dodaj pracownika</h1>
+<h1>Rezerwacja</h1>
 <form action="" , method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Dodaj pracownika">
+    <a href="/add_dog">Dodaj psa</a><br>
+    <input type="submit" value="Zarezerwuj">
 </form>
 {% endblock %}

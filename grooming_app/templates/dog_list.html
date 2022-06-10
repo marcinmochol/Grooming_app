@@ -1,10 +1,25 @@
+{% extends 'base.html' %}
 
-{% for dog in dog_list %}
-    <ul>{{ dog.dog_name }}  {{ dog.breed }} {{ dog.age }} {{ dog.comment }}
-    <a href="/dog/modify/{{ dog.id }}">Modyfikuj</a>
-    <a href="{{ dog.id }}">Usuń</a></ul>
+{% block content%}
+
+<style> td, th { border: 1px solid black; } </style>
+<table>
+   <thead>
+      <tr>
+         <th>Imię</th> <th>Rasa</th> <th>Wiek</th> <th>Komentarz</th>
+      </tr>
+   </thead>
+   <tbody>
+   {% for dog in dog_list %}
+      <tr>
+         <th>{{ dog.dog_name }}</th> <td>{{ dog.breed }}</td> <td>{{ dog.age }}</td> <td>{{ dog.comment }}</td>
+      <td><a href="/dog/modify/{{ dog.id }}">Modyfikuj</a></td>
+      <td><a href="{{ dog.id }}">Usuń</a></td>
+      </tr>
+    {% endfor %}
+   </tbody>
+</table>
 
 
-{% empty %}
-    <li>Brak psów</li>
-{% endfor %}
+
+{% endblock %}
