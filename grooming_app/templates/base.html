@@ -14,19 +14,28 @@
 
 {% block content %}
 
-    <div class="login-view">
+
         {% if user.is_authenticated %}
             <div class="links">
-            <a href="/add_dog">Dodaj psa</a><br>
-            <a href="/add_service">Dodaj usługę</a><br>
-            <a href="/dog_list">Lista psów</a><br>
-            <a href="/add_client">Dodaj klienta</a><br>
-            <a href="/add_employee">Dodaj pracownika</a><br>
-            <a href="/employees_list">Lista pracowników</a><br>
+                <a href="/add_dog">Dodaj psa</a><br>
+                <a href="/add_service">Dodaj usługę</a><br>
+                <a href="/service_list">Lista usług</a><br>
+                <a href="/dog_list">Lista psów</a><br>
+                <a href="/add_client">Dodaj klienta</a><br>
+                <a href="/add_employee">Dodaj pracownika</a><br>
+                <a href="/employees_list">Lista pracowników</a><br>
+                <a href="/reservation">Rezerwacja</a><br>
             </div>
         {% else %}
-            <a href="/employees_list">Lista pracowników</a><br>
-    {% endif %}
+            <div class="links">
+                <a href="/employees_list">Lista pracowników</a><br>
+                <a href="/service_list">Lista usług</a><br>
+                <a href="/add_dog">Dodaj psa</a><br>
+                <a href="/dog_list">Lista psów</a><br>
+                <a href="/add_client">Dodaj klienta</a><br>
+                <a href="/reservation">Rezerwacja</a><br>
+            </div>
+        {% endif %}
 
 
     <div class="login-view">
@@ -34,8 +43,9 @@
             <a href="{% url 'login' %}">Log in</a>
         {% else %}
             <a href="{% url 'logout' %}">Log out</a>
-    {% endif %}
     </div>
+        {% endif %}
+
 {% endblock %}
 </body>
 </html>

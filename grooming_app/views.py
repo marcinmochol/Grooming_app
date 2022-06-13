@@ -3,14 +3,24 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 from .forms import DogsForm, ServiceForm, LoginForm, EmployeeForm, ClientForm, ReservationForm
-from .models import Dogs, Service, Employees, Clients
+from .models import Dogs, Service, Employees, Clients, MyReservation
 from django.views.generic import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+
 
 class Base(View):
+    """
+    View of landing page.
+    """
     def get(self, request):
         return render(request, 'base.html')
 
+
 class AddDog(View):
+    """
+    View that allowes you to add dog to database
+    """
     def get(self, request):
         form = DogsForm()
         return render(request, 'Add_dog.html', {'form': form})
@@ -26,21 +36,24 @@ class AddDog(View):
             return HttpResponseRedirect('/dog_list')
         return render(request, 'Add_dog.html', {'form': form})
 
+
 class DogsListView(ListView):
     model = Dogs
     template_name = 'dog_list.html'
     context_object_name = 'dog_list'
 
+
 class ModifyDogs(View):
     def get(self, request, dog_id):
-        dog = Dogs.objects.filter(id=dog_id)
-        return render(request, 'Modify_dog.html', {'dog':dog})
+        dog = Dogs.objects.get(id=dog_id)
+        return render(request, 'Modify_dog.html', {'dog': dog})
+
     def post(self, request, dog_id):
+        d = Dogs.objects.get(id=dog_id)
         dog_name = request.POST.get('dog_name')
         breed = request.POST.get('breed')
         age = request.POST.get('age')
         comment = request.POST.get('comment')
-        d = Dogs.objects.get(id=dog_id)
         d.dog_name = dog_name
         d.breed = breed
         d.age = age
@@ -48,11 +61,13 @@ class ModifyDogs(View):
         d.save()
         return redirect("dog_list")
 
+
 class DeleteDogsView(View):
     def get(self, request, dog_id):
         dog = Dogs.objects.get(id=dog_id)
         dog.delete()
         return redirect("dog_list")
+
 
 class AddClient(View):
     def get(self, request):
@@ -70,7 +85,8 @@ class AddClient(View):
             return HttpResponseRedirect('/')
         return render(request, 'Add_client.html', {'form': form})
 
-class AddService(View):
+
+class AddService(LoginRequiredMixin, View):
     def get(self, request):
         form = ServiceForm()
         return render(request, 'Add_service.html', {'form': form})
@@ -83,6 +99,11 @@ class AddService(View):
             service = Service.objects.create(service_name=service_name, price=price)
             return HttpResponseRedirect('/')
         return render(request, 'Add_service.html', {'form': form})
+
+class ServiceListView(ListView):
+    model = Service
+    template_name = 'service_list.html'
+    context_object_name = 'service_list'
 
 class AddEmployee(View):
     def get(self, request):
@@ -99,12 +120,14 @@ class AddEmployee(View):
             return HttpResponseRedirect('/')
         return render(request, 'Add_employee.html', {'form': form})
 
+
 class EmployeesListView(ListView):
     model = Employees
     template_name = 'employees_list.html'
     context_object_name = 'employees_list'
 
-class Reservation(View):
+
+class ReservationView(LoginRequiredMixin, View):
     def get(self, request):
         form = ReservationForm()
         return render(request, 'reservation.html', {'form': form})
@@ -114,9 +137,12 @@ class Reservation(View):
         if form.is_valid():
             start_day = form.cleaned_data['start_day']
             start_hour = form.cleaned_data['start_hour']
-            reservation = Employees.objects.create(start_day=start_day, start_hour=start_hour)
-            return HttpResponseRedirect('/')
+            description = form.cleaned_data['description']
+            reservation = MyReservation.objects.create(start_day=start_day, start_hour=start_hour,
+                                                       description=description)
+            return redirect('/')
         return render(request, 'reservation.html', {'form': form})
+
 
 class LoginView(View):
 
@@ -132,10 +158,13 @@ class LoginView(View):
                 login(request, user)
                 return HttpResponseRedirect('/')
             else:
-                return HttpResponse('Wrong login or passsword')
+                return HttpResponse('Niepoprawny login lub hasło')
         return render(request, 'login.html', {'form': form})
+
 
 class LogoutView(View):
     def get(self, request):
         logout(request)
         return HttpResponseRedirect('/')
+
+

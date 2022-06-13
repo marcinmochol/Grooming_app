@@ -7,8 +7,9 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<br>
-<br action="" method="POST">
+<body>
+<form>
+<br action="/update/{{ dogs.id }}" method="POST">
     {% csrf_token %}
     <label>
         Imię psa:
@@ -28,9 +29,6 @@
     </label>
     <br><input type="submit" value="Modyfikuj"></br>
 </form>
-
-
-
 </body>
 </html>
 {% endblock %}

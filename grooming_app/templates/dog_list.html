@@ -6,13 +6,13 @@
 <table>
    <thead>
       <tr>
-         <th>Imię</th> <th>Rasa</th> <th>Wiek</th> <th>Komentarz</th>
+         <th>Właściciel</th><th>Imię psa</th> <th>Rasa</th> <th>Wiek</th> <th>Komentarz</th>
       </tr>
    </thead>
    <tbody>
    {% for dog in dog_list %}
       <tr>
-         <th>{{ dog.dog_name }}</th> <td>{{ dog.breed }}</td> <td>{{ dog.age }}</td> <td>{{ dog.comment }}</td>
+         <th>{{ Clients.name }}</th><th>{{ dog.dog_name }}</th> <td>{{ dog.breed }}</td> <td>{{ dog.age }}</td> <td>{{ dog.comment }}</td>
       <td><a href="/dog/modify/{{ dog.id }}">Modyfikuj</a></td>
       <td><a href="{{ dog.id }}">Usuń</a></td>
       </tr>

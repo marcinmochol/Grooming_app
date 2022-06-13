@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from grooming_app.models import Dogs, Clients, Employees, Service, Reservation
+from .models import Dogs, Clients, Employees, Service
 from django.contrib.admin.widgets import AdminDateWidget, AdminTimeWidget
 
 Hours = (
@@ -43,9 +43,9 @@ class EmployeeForm(ModelForm):
 
 
 class ReservationForm(forms.Form):
-    employye = forms.ModelChoiceField(queryset=Employees.objects)
     dog = forms.ModelChoiceField(queryset=Dogs.objects)
     service = forms.ModelChoiceField(queryset=Service.objects)
-    start_day = forms.DateField(label="Start", widget=AdminDateWidget)
-    start_hour = forms.TimeField(label="Start", widget=AdminTimeWidget)
+    start_day = forms.DateField(label="Dzień", widget=AdminDateWidget)
+    start_hour = forms.TimeField(label="Godzina", widget=AdminTimeWidget)
+    description = forms.CharField(widget=forms.Textarea)
 

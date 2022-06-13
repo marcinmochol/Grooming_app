@@ -35,12 +35,12 @@ class Employees(models.Model):
 
 
 
-class Reservation(models.Model):
-    employee = models.ForeignKey(Employees, on_delete=models.CASCADE)
-    dog = models.ForeignKey(Dogs, on_delete=models.CASCADE)
+class MyReservation(models.Model):
     service = models.ForeignKey('Service', on_delete=models.CASCADE, null=True)
+    dog = models.ForeignKey('Dogs', on_delete=models.CASCADE, null=True)
     start_day = models.DateField(null=True)
     start_hour = models.TimeField(null=True)
+    description = models.TextField(null=True, verbose_name='Opis')
 
 
 class Service(models.Model):

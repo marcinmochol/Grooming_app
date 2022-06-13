@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{#{% block content%}#}
+{#    {{ reservation }}#}
+{#<h3>Dane rezerwacji:</h3>#}
+{#<p>Pies: {{dog.dog_name}}</p>#}
+{#<p>Pies: {{dog.breed}}</p>#}
+{#<p>Nazwisko: {{dog.age}}</p>#}
+{#<p>Klasa: {{reservation.start_day}}</p>#}
+{#<p>Klasa: {{reservation.start_hour}}</p>#}
+{#{% endblock %}#}
+{% block content%}
+<style> td, th { border: 1px solid black; } </style>
+{% for re in reservation_list %}
+        <p>{{ dog.dog_name }}  {{ dog.breed }}  {{ dog.age }}</p>
+        <p>{{ re.start_day }}</p>
+        <p>{{ re.start_hour }}</p>
+
+{% endfor %}
+
+{% endblock %}
