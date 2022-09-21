@@ -16,6 +16,7 @@ Install:
     psycopg2-binary (newest: 2.9.3),
     pytest,
     pytest-django
+    django-phone-field
 
 Create database and configure local_setting.py file:
 ```bash
